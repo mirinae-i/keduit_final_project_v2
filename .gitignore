@@ -108,4 +108,9 @@ local.properties
 hs_err_pid*
 replay_pid*
 
+# Custom
+.classpath
+.project
+target/
+
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,git
