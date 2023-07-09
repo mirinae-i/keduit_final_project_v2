@@ -57,4 +57,15 @@ public class MemberController {
 		return mav;
 	}
 
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		log.info("** MemberController - logout **");
+		HttpSession session = request.getSession();
+		boolean isLogOn = (boolean) session.getAttribute("isLogOn");
+		if (isLogOn) {
+			session.invalidate();
+		}
+		return "redirect:/member/main";
+	}
+
 }

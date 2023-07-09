@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
     <hr />
     <c:choose>
       <c:when test="${isLogOn eq true}">
-        <p><a href="#">${Member.name} (로그아웃)</a></p>
+        <p><a href="/member/logout">${Member.name} (로그아웃)</a></p>
       </c:when>
       <c:otherwise>
         <p><a href="/member/sign">로그인</a></p>
