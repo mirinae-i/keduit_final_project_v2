@@ -6,19 +6,17 @@ pageEncoding="UTF-8"%>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인</title>
+    <title>메인</title>
   </head>
   <body>
-    <h1>로그인 결과</h1>
+    <h1>세션 상태</h1>
     <hr />
     <c:choose>
-      <c:when test="${Member ne null}">
-        <p>${Member.name}님, 환영합니다!!</p>
-        <p><a href="/member/main">메인 페이지로</a></p>
+      <c:when test="${isLogOn eq true}">
+        <p><a href="/member/logout">${Member.name} (로그아웃)</a></p>
       </c:when>
       <c:otherwise>
-        <p>입력한 ID 또는 비밀번호가 잘못되었습니다.</p>
-        <p><a href="/member/sign">이전 화면으로</a></p>
+        <p><a href="/member/sign">로그인</a></p>
       </c:otherwise>
     </c:choose>
   </body>

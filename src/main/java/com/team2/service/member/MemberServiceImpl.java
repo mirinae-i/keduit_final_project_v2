@@ -45,9 +45,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 		if (attempt == null) {
 			log.error("** MemberServiceImpl - login Error **");
 			log.error("** 로그인 실패, 입력한 ID에 해당하는 회원이 없음 **");
-			attempt = new MemberDTO();
-			attempt.setSerial_no(-1);
-			return attempt;
+			return null;
 		} else {
 			if (BCrypt.checkpw(dto.getPw(), attempt.getPw())) {
 				log.info("로그인 성공");
@@ -55,8 +53,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 			} else {
 				log.error("** MemberServiceImpl - login Error **");
 				log.error("** 로그인 실패, 비밀번호가 일치하지 않음 **");
-				attempt.setSerial_no(-2);
-				return attempt;
+				return null;
 			}
 		}
 	}

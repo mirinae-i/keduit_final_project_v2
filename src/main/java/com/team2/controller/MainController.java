@@ -13,9 +13,4 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainController {
 
-	@GetMapping("/test")
-	public void test() {
-		log.info("텞슶틊");
-	}
-
 }
