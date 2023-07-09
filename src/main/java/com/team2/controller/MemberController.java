@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team2.domain.member.MemberDTO;
@@ -29,7 +30,6 @@ public class MemberController {
 		log.info("** MemberController - sign **");
 	}
 
-	@ResponseBody
 	@PostMapping("/login")
 	public void login(@ModelAttribute("memberDTO") MemberDTO memberDTO, Model model) {
 		log.info("** MemberController - login **");
@@ -48,6 +48,7 @@ public class MemberController {
 			log.info(result.toString());
 			break;
 		}
+		model.addAttribute("Member", result);
 	}
 
 }
