@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+    
+    
 </head>
 
 <body>
@@ -155,5 +157,4 @@
     </header>
     <!-- Header Section End -->
     
-    </body>
-    </html>
+    

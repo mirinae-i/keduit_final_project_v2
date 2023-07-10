@@ -13,16 +13,15 @@
 					<img src="../resources/img/action/ad.jpg">
 				</div>
 			</div>
-			
 				<div class="col-lg-6">
-				 <div class="latest-product__slider owl-carousel">
-					<img src="../resources/img/action/main.png">
+				 <div class="latest-product__slider owl-carousel owl-loaded owl-drag">
+		<img src="../resources/img/action/main.png">
 					</div>
 				</div>
+			
 				<div class="col-lg-3">
-					<div class="hero__categories">
-
-						<img src="../resources/img/action/ad.jpg">
+			   <div class="hero__categories">
+				<img src="../resources/img/action/ad.jpg">
 					</div>
 				</div>
 			</div>

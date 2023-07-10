@@ -102,19 +102,7 @@
                         
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>화산재 낙하</h2>
-                        </div>
-                        <div class="row">                     
-                                <img src="../resources/imgInfo/ash.jpg">
-                         </div>
-                    </div>
-                    <div class="filter__item">
-                       
-                    </div>
-                </div>
+               
             </div>
         </div>
     </section>

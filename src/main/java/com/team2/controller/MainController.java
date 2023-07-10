@@ -28,6 +28,12 @@ public class MainController {
 	public void index() {
 		log.info("인덱스 나와라");
 	}
+	
+	@GetMapping("/main/AED")
+	public void AED() {
+		log.info("인덱스 나와라");
+	}
+	
 
 
 }

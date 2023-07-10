@@ -38,11 +38,11 @@ public class MemberController {
 		switch (result.getSerial_no()) {
 		case -1:
 			log.error("** MemberController - login Error **");
-			log.error("입력한 ID에 해당하는 회원이 없음");
+			log.error("�엯�젰�븳 ID�뿉 �빐�떦�븯�뒗 �쉶�썝�씠 �뾾�쓬");
 			break;
 		case -2:
 			log.error("** MemberController - login Error **");
-			log.error("입력한 비밀번호가 잘못됨");
+			log.error("�엯�젰�븳 鍮꾨�踰덊샇媛� �옒紐삳맖");
 			break;
 		default:
 			log.info(result.toString());
@@ -50,4 +50,10 @@ public class MemberController {
 		}
 	}
 
+	@GetMapping("/myinfo")
+	public void myinfo() {
+		log.info("** MemberController - myinfo **");
+	}
+	
+	
 }
