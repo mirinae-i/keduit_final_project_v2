@@ -78,9 +78,10 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 	}
 
 	@Override
-	public void join(MemberDTO dto) {
-		// TODO Auto-generated method stub
-
+	public Integer join(MemberDTO dto) {
+		dto.setPw(encrypt(dto.getPw()));
+		return mapper.join(dto);
+		
 	}
 
 	@Override
@@ -93,6 +94,10 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 	public Integer remove(Integer key) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private String encrypt(String plain) {
+		return BCrypt.hashpw(plain, BCrypt.gensalt(12));
 	}
 
 }

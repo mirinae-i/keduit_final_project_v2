@@ -23,7 +23,7 @@ public interface MemberService<VO, K> {
 	public void logout();
 	
 	// 회원 가입
-	public void join(VO vo);
+	public Integer join(VO vo);
 	
 	// 회원정보 수정
 	public Integer modify(VO vo);

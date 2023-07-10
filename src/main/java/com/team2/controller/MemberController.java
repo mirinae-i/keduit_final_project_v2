@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,6 +98,26 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/show_member_info");
 		return mav;
+	}
+
+	@GetMapping("/join")
+	public void join() {
+		log.info("** MemberController - join(GET) **");
+	}
+
+	@PostMapping("/join")
+	public String joinAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, Model model) {
+		log.info("** MemberController - join(POST) **");
+		log.info("** {} **", memberDTO.toString());
+		Integer result = memberService.join(memberDTO);
+		if (result != null && result == 1) {
+			log.info("** 회원 가입 결과: {} **", result);
+			model.addAttribute("join_result", result);
+		} else {
+			log.error("** MemberController - join(POST) Error **");
+			log.error("** 회원 가입 실패 **");
+		}
+		return "redirect:/member/join_result";
 	}
 
 }

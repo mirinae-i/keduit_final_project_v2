@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
     <h1>내 정보 보기</h1>
     <hr />
     <c:choose>
-      <c:when test="${Member ne null}">
+      <c:when test="${Member ne null}"> <%-- 로그인중일 때 시작 --%>
         <p>닉네임: ${Member.name}</p>
         <table>
           <tr>
@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
               <c:otherwise>
                 <c:choose>
                   <c:when test="${Member.grade eq 1}">
-                    <td>회원(일반)</td>
+                    <td>일반 회원</td>
                   </c:when>
                   <c:otherwise>
                     <td>관리자 (관리 권한 등급: ${Member.grade})</td>
@@ -54,12 +54,25 @@ pageEncoding="UTF-8"%>
             <td>${Member.join_date}</td>
           </tr>
         </table>
+        <br />
+        <%-- 회원 탈퇴 --%>
+        <span>
+          <button>회원 정보 수정</button>
+          <c:choose>
+            <c:when test="${Member.grade eq 1}">
+              <button>회원 탈퇴</button>
+            </c:when>
+            <c:otherwise>
+              <%-- 관리자는 회원 탈퇴 불가 --%>
+            </c:otherwise>
+          </c:choose>
+        </span>
         <p><a href="/member/main">메인 페이지로</a></p>
-      </c:when>
-      <c:otherwise>
+      </c:when> <%-- 로그인중일 때 끝 --%>
+      <c:otherwise> <%-- 로그인중이 아닐 때 시작 --%>
         <p>현재 로그인중이 아닙니다.</p>
         <p><a href="/member/sign">로그인하기</a></p>
-      </c:otherwise>
+      </c:otherwise> <%-- 로그인중이 아닐 때 끝 --%>
     </c:choose>
   </body>
 </html>
