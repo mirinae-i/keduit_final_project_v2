@@ -8,14 +8,26 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/*")
+@RequestMapping("/")
 @AllArgsConstructor
 @Slf4j
 public class MainController {
 
 	@GetMapping("/test")
 	public void test() {
-		log.info("í…žìŠ¶í‹Š");
+		log.info("Å×šÀÈå");
 	}
+	
+
+	@GetMapping("/main/shop")
+	public void shop() {
+		log.info("¼î¤ÁÇÎÇÑ¹ø ÇÏ½ÃÁÒ?");
+	}
+	
+	@GetMapping("/main/index")
+	public void index() {
+		log.info("ÀÎµ¦½º ³ª¿Í¶ó");
+	}
+
 
 }
