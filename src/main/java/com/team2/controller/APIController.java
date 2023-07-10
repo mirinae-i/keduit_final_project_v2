@@ -42,7 +42,6 @@ public class APIController {
 	}
 	
 	
-	
 	//카카오 API
 	
 	//카카오 로그인(이미지 버튼식, 인클루드 태그로 활용)
@@ -60,16 +59,12 @@ public class APIController {
 		return "main";
 	}
 	
-	
 	//카카오 공유(이미지 버튼식, 인클루드 태그로 활용)
 	@GetMapping("/kakaoshare")
 	public void share() {
 		log.info("공유 돼 주시궜어요?");
 	}
 
-	
-	
-	
 	
 
 }
