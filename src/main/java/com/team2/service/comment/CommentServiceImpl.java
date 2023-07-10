@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.team2.domain.comment.CommentDTO;
+import com.team2.mapper.comment.CommentMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,51 +14,46 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 public class CommentServiceImpl implements CommentService {
+	
+	CommentMapper mapper;
 
 	@Override
-	public void register(CommentDTO vo) {
-		// TODO Auto-generated method stub
+	public Integer register(CommentDTO vo) {
+		return mapper.insert(vo);
 	}
 
 	@Override
 	public CommentDTO get(Integer key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer modify(CommentDTO vo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer remove(Integer key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<CommentDTO> listAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer registerKey(CommentDTO dto) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<CommentDTO> getList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer getTotal() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

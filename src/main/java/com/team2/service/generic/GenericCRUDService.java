@@ -3,7 +3,7 @@ package com.team2.service.generic;
 public interface GenericCRUDService<VO, K> {
 
 	// CREATE
-	public void register(VO vo);
+	public Integer register(VO vo);
 
 	// READ
 	public VO get(K key);

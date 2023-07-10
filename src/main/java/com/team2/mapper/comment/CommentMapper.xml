@@ -2,7 +2,41 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="com.team2.mapper.comment.CommentMapper">
+
+	<insert id="insert"
+		parameterType="com.team2.domain.comment.CommentDTO">
+
+		INSERT INTO comment(c_parent,c_content,c_id)
+		VALUE (#{c_parent},#{c_content},#{c_id})
+
+	</insert>
+
+
+
+	<select id="select" parameterType="Integer"
+		resultType="com.team2.domain.comment.CommentDTO">
+		SELECT * FROM comment
+		WHERE #{bno} = c_parent
+
+	</select>
+
+
+
+	<update id="update"
+		parameterType="com.team2.domain.comment.CommentDTO">
+		UPDATE comment SET c_content = #{c_content}
+		WHERE c_no = #{c_no}
+
+	</update>
+
+
+
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM comment WHERE c_no = #{c_no}
+
+	</delete>
+
 
 </mapper>

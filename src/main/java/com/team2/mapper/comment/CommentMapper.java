@@ -6,7 +6,7 @@ import com.team2.domain.comment.CommentDTO;
 public interface CommentMapper {
 
 	// CREATE
-	public void insert(CommentDTO dto);
+	public Integer insert(CommentDTO dto);
 
 	// READ
 	public BoardDTO select(Integer bno);

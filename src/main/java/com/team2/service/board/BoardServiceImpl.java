@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService {
 
 	@Override
-	public void register(BoardDTO vo) {
+	public Integer register(BoardDTO vo) {
+		return null;
 		// TODO Auto-generated method stub
 	}
 
