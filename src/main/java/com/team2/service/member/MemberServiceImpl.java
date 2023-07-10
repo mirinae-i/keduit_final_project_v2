@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 
 	@Override
 	public void logout() {
-		// TODO Auto-generated method stub
+
 	}
 
 	@Override

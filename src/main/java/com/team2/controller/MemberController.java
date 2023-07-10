@@ -68,4 +68,20 @@ public class MemberController {
 		return "redirect:/member/main";
 	}
 
+	@GetMapping("/show_member_info")
+	public ModelAndView showMemInfo(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
+			HttpServletResponse response) {
+		log.info("** MemberController - show_member_info **");
+		HttpSession session = request.getSession();
+		if (session.getAttribute("Member") != null) {
+			memberDTO = (MemberDTO) session.getAttribute("Member");
+		} else {
+			log.error("** MemberController - show_member_info Error **");
+			log.error("** 세션에 MemberDTO가 존재하지 않음 **");
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/show_member_info");
+		return mav;
+	}
+
 }
