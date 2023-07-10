@@ -21,7 +21,7 @@ pageEncoding="UTF-8"%>
           </tr>
           <tr>
             <th>비밀번호</th>
-            <td>비밀번호는 서버에 암호화되어 저장됩니다.</td>
+            <td>${Member.pw}</td>
           </tr>
           <tr>
             <th>닉네임</th>

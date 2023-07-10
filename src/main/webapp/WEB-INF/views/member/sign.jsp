@@ -66,7 +66,7 @@ pageEncoding="UTF-8"%>
       <div class="row">
         <!-- 로그인 -->
         <div class="col col-md-6">
-          <form>
+          <form action="/member/login">
             <label for="login_id">ID: </label>
             <input id="login_id" type="text" />
             <label id="login_id_chk" style="display: none">id</label>

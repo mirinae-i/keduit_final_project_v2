@@ -7,7 +7,7 @@
 
 	<select id="preLogin" parameterType="com.team2.domain.member.MemberDTO" resultType="com.team2.domain.member.MemberDTO">
 		SELECT
-			`serial_no`, `pw`
+			`serial_no`, `pw`, `valid`
 		FROM
 			`member`
 		WHERE

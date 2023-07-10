@@ -43,14 +43,29 @@ public class MemberController {
 		log.info("** MemberController - login **");
 		log.info("Login id: {}, pw: {}", memberDTO.getId(), memberDTO.getPw());
 		MemberDTO result = memberService.login(memberDTO);
-		if (result != null) {
+		switch (result.getSerial_no()) {
+		case -1:
+			log.error("** MemberController - login Error **");
+			log.error("** 입력한 ID가 잘못됨 **");
+			request.setAttribute("MemberNo", result.getSerial_no());
+			break;
+		case -2:
+			log.error("** MemberController - login Error **");
+			log.error("** 입력한 비밀번호가 회원 정보와 일치하지 않음 **");
+			request.setAttribute("MemberNo", result.getSerial_no());
+			break;
+		case -3:
+			log.error("** MemberController - login Error **");
+			log.error("** 이미 탈퇴한 회원 **");
+			request.setAttribute("MemberNo", result.getSerial_no());
+			break;
+		default:
 			log.info(result.toString());
 			HttpSession session = request.getSession();
+			request.setAttribute("MemberNo", result.getSerial_no());
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("Member", result);
-		} else {
-			log.error("** MemberController - login Error **");
-			log.error("입력한 ID 또는 비밀번호가 잘못됨");
+			break;
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/login");
