@@ -3,30 +3,53 @@
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>실시간 재난정보</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg"
+	data-setbg="../resources/img/action/D_bg.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="breadcrumb__text">
+					<h2>실시간 재난정보</h2>
+					<div class="breadcrumb__option">
+						<a href="./index.html">Home</a> <span>Shop</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Breadcrumb Section End --
 
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">
         <div class="container">
             <div class="row">
                 
-                  <div class="col-lg-3 col-md-5">
+                <div class="col-lg-3">
+                    
+                </div>
+               
+                       
+                <div class="col-lg-3">
+                    
+                </div>
+               
+              
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+        
+   
+            <div class="row">
+             <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                      <div class="sidebar__item">
                             <h4>기본대비요령</h4>
@@ -77,35 +100,71 @@
                        
                        
                     </div>
-               
-                        <div class="hero__search__form">
-                            <form action="#">
-                               
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
-                <div class="col-lg-3">
+                    </div>
                     
-                </div>
-               
-              
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-
-
-    <!-- Shoping Cart Section Begin -->
-    <section class="shoping-cart spad">
-        <div class="container">
-         <h3>소통 게시판</h3>
-          <br><br>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
+                    <div class="col-lg-9" >
+                      
+                           
+                         <br>
+                         <br>
                             <thead>
+                        
+                                <tr align="center">
+                                 
+                                 <th> 
+                                  <select name='Address'>
+                                            <option value=''>----- 지역 선택 -----</option>
+                                            <option value='apple' selected>경기도</option>
+                                            <option value='seoul_incheon' selected>서울,인천</option>
+                                            <option value='gyeongsangdo' selected>경상도</option>
+                                        </select>
+                                      </th>
+                                    
+                           &nbsp
+                            <div class="hero__search__form"> 
+                               <form action="#">
+                               
+                         
+                               <th>
+                         
+                               <input type="text" placeholder="키워드를 검색하세요.">
+                                
+                               </th>
+                               </form>
+                               </div>
+                               
+                            <th> 
+                                <button type="submit" class="site-btn">검색</button>
+                              </th>
+                              
+                             
+                              
+                              </tr>
+                            
+                         
+                            
+                        </table>
+                    
+                    
+                    
+                    
+             
+                    <div class="shoping__cart__table" >
+                      
+                        <table>
+                           
+                         <br>
+                         <br>
+                            <thead>
+                        
+                               
+                              </div>
+                              </form>
+                              
+                              </tr>
+                            
+                          </div>
+                            
                                 <tr>
                                     <th>NO.</th>
                                     <th>제목</th>
@@ -180,12 +239,13 @@
                                     <td class="shoping__cart__total">
                                         23.07.05
                                 </tr>
+                                
                             </tbody>
+                          
                         </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
+                      
+                        <div class="col-lg-12" align="center">
+                        <br>
                 <div class="product__pagination blog__pagination">
                     <a href="#">1</a>
                     <a href="#">2</a>
@@ -194,7 +254,12 @@
                     <a href="#">5</a>
                     <a href="#"><i class="fa fa-long-arrow-right"></i></a>
                 </div>
+                </div>
             </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </section>
     <!-- Shoping Cart Section End -->
