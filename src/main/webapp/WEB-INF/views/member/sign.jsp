@@ -54,6 +54,9 @@ pageEncoding="UTF-8"%>
             }
           }
         });
+        $("#join_btn").on("click", function () {
+          location.href = "/member/join";
+        });
       });
     </script>
   </head>
@@ -69,11 +72,11 @@ pageEncoding="UTF-8"%>
           <form>
             <label for="login_id">ID: </label>
             <input id="login_id" type="text" />
-            <label id="login_id_chk" style="display: none">id</label>
+            <label id="login_id_chk" style="display: none"></label>
             <br />
             <label for="login_pw">비밀번호: </label>
             <input id="login_pw" type="password" />
-            <label id="login_pw_chk" style="display: none">pw</label>
+            <label id="login_pw_chk" style="display: none"></label>
             <br />
             <input id="login_btn" type="button" value="로그인" />
           </form>
@@ -81,7 +84,7 @@ pageEncoding="UTF-8"%>
         <!-- 회원 가입 -->
         <div class="col col-md-6">
           <p>커뮤니티에 게시글을 작성하기 위해서는 회원가입이 필요합니다.</p>
-          <button>회원 가입</button>
+          <input id="join_btn" type="button" value="회원 가입" />
         </div>
       </div>
     </div>

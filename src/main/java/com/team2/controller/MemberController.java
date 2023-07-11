@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,14 +44,29 @@ public class MemberController {
 		log.info("** MemberController - login **");
 		log.info("Login id: {}, pw: {}", memberDTO.getId(), memberDTO.getPw());
 		MemberDTO result = memberService.login(memberDTO);
-		if (result != null) {
+		switch (result.getSerial_no()) {
+		case -1:
+			log.error("** MemberController - login Error **");
+			log.error("** 입력한 ID가 잘못됨 **");
+			request.setAttribute("MemberNo", result.getSerial_no());
+			break;
+		case -2:
+			log.error("** MemberController - login Error **");
+			log.error("** 입력한 비밀번호가 회원 정보와 일치하지 않음 **");
+			request.setAttribute("MemberNo", result.getSerial_no());
+			break;
+		case -3:
+			log.error("** MemberController - login Error **");
+			log.error("** 이미 탈퇴한 회원 **");
+			request.setAttribute("MemberNo", result.getSerial_no());
+			break;
+		default:
 			log.info(result.toString());
 			HttpSession session = request.getSession();
+			request.setAttribute("MemberNo", result.getSerial_no());
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("Member", result);
-		} else {
-			log.error("** MemberController - login Error **");
-			log.error("입력한 ID 또는 비밀번호가 잘못됨");
+			break;
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/login");
@@ -66,6 +82,47 @@ public class MemberController {
 			session.invalidate();
 		}
 		return "redirect:/member/main";
+	}
+
+	@GetMapping("/show_member_info")
+	public ModelAndView showMemInfo(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
+			HttpServletResponse response) {
+		log.info("** MemberController - show_member_info **");
+		HttpSession session = request.getSession();
+		if (session.getAttribute("Member") != null) {
+			memberDTO = (MemberDTO) session.getAttribute("Member");
+		} else {
+			log.error("** MemberController - show_member_info Error **");
+			log.error("** 세션에 MemberDTO가 존재하지 않음 **");
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/show_member_info");
+		return mav;
+	}
+
+	@GetMapping("/join")
+	public void join() {
+		log.info("** MemberController - join(GET) **");
+	}
+
+	@PostMapping("/join")
+	public String joinAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, Model model) {
+		log.info("** MemberController - join(POST) **");
+		log.info("** {} **", memberDTO.toString());
+		Integer result = memberService.join(memberDTO);
+		if (result != null && result == 1) {
+			log.info("** 회원 가입 결과: {} **", result);
+			model.addAttribute("join_result", result);
+		} else {
+			log.error("** MemberController - join(POST) Error **");
+			log.error("** 회원 가입 실패 **");
+		}
+		return "redirect:/member/join_result";
+	}
+	
+	@PostMapping("/join_result")
+	public void join_result() {
+		
 	}
 
 }

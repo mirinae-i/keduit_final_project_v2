@@ -14,6 +14,7 @@ pageEncoding="UTF-8"%>
     <c:choose>
       <c:when test="${isLogOn eq true}">
         <p><a href="/member/logout">${Member.name} (로그아웃)</a></p>
+        <p><a href="/member/show_member_info">나의 정보</a></p>
       </c:when>
       <c:otherwise>
         <p><a href="/member/sign">로그인</a></p>
