@@ -119,5 +119,10 @@ public class MemberController {
 		}
 		return "redirect:/member/join_result";
 	}
+	
+	@PostMapping("/join_result")
+	public void join_result() {
+		
+	}
 
 }
