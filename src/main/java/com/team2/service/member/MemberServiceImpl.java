@@ -17,12 +17,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 	MemberMapper mapper;
 
 	@Override
-	public MemberDTO get() {
-		// MemberController의 login에서 처리 후 session 영역에 저장됨
-		return null;
-	}
-
-	@Override
 	public boolean isAdmin(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		return false;
@@ -81,13 +75,13 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 	public Integer join(MemberDTO dto) {
 		dto.setPw(encrypt(dto.getPw()));
 		return mapper.join(dto);
-		
+
 	}
 
 	@Override
 	public Integer modify(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		dto.setPw(encrypt(dto.getPw()));
+		return mapper.update(dto);
 	}
 
 	@Override
@@ -95,7 +89,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private String encrypt(String plain) {
 		return BCrypt.hashpw(plain, BCrypt.gensalt(12));
 	}

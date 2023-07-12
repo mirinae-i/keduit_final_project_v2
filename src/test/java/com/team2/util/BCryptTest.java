@@ -14,7 +14,7 @@ public class BCryptTest {
 
 	@Test
 	public void encryptTest() {
-		String plain = "1q2w3e4r!";
+		String plain = "$2a$12$sL1eb0zQuKXkONcjQvrkMOYmMpk33z.xgro1vgvLsDBEBiXnIwetO";
 		String hashed = BCrypt.hashpw(plain, BCrypt.gensalt(12));
 		log.info("Encrypt: {}", hashed);
 	}

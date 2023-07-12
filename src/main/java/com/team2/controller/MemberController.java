@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.domain.member.MemberDTO;
 import com.team2.service.member.MemberService;
@@ -106,23 +108,52 @@ public class MemberController {
 	}
 
 	@PostMapping("/join")
-	public String joinAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, Model model) {
+	public String joinAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, RedirectAttributes rttr) {
 		log.info("** MemberController - join(POST) **");
 		log.info("** {} **", memberDTO.toString());
 		Integer result = memberService.join(memberDTO);
 		if (result != null && result == 1) {
 			log.info("** 회원 가입 결과: {} **", result);
-			model.addAttribute("join_result", result);
+			rttr.addAttribute("join_result", result);
 		} else {
 			log.error("** MemberController - join(POST) Error **");
 			log.error("** 회원 가입 실패 **");
 		}
 		return "redirect:/member/join_result";
 	}
+
+	@GetMapping("/join_result")
+	public void joinResult(RedirectAttributes rttr) {
+		log.info("** MemberController - join_result **");
+		log.info("** join_result: {} **", rttr.getAttribute("join_result"));
+	}
 	
-	@PostMapping("/join_result")
-	public void join_result() {
-		
+	@PostMapping("/modify_member")
+	public String modifyAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, RedirectAttributes rttr) {
+		log.info("** MemberController - modify_member **");
+		log.info("** {} **", memberDTO.toString());
+		Integer result = memberService.modify(memberDTO);
+		if (result != null && result == 1) {
+			log.info("** 회원 정보 수정 결과: {} **", result);
+			rttr.addFlashAttribute("modify_result", result);
+		} else {
+			log.error("** MemberController - modify_member(POST) Error **");
+			log.error("** 회원 정보 수정 실패 **");
+		}
+		return "redirect:/member/modify_member_result";
+	}
+	
+	@GetMapping("/modify_member_result")
+	public void modifyMemberResult(RedirectAttributes rttr) {
+		log.info("** MemberController - modify_member_result **");
+	}
+	
+	@GetMapping("/modify_complete")
+	public String modifyComplete(HttpServletRequest request, HttpServletResponse response) {
+		log.info("** MemberController - modify_complete **");
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "redirect:/member/sign";
 	}
 
 }

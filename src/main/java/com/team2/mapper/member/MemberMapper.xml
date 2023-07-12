@@ -30,4 +30,12 @@
 			(#{id}, #{pw}, #{email}, #{name})
 	</insert>
 	
+	<update id="update" parameterType="com.team2.domain.member.MemberDTO" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		UPDATE `member`
+		SET
+			`pw` = #{pw}, `name` = #{name}, `email` = #{email}
+		WHERE
+			`id` = #{id}
+	</update>
+	
 </mapper>

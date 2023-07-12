@@ -1,0 +1,9 @@
+{
+  "editorconfig": true,
+  "printWidth": 140,
+  "endOfLine": "crlf",
+  "jsxSingleQuote": true,
+  "singleQuote": true,
+  "htmlWhitespaceSensitivity": "css",
+  "trailingComma": "es5"
+}
