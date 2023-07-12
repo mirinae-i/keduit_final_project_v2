@@ -1,8 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<jsp:include page="../include/header_sign.jsp"></jsp:include>
+<jsp:include page="../include/header.jsp"></jsp:include>
 
+
+
+
+<script>
+      $(function () {
+        $("#login_btn").on("click", function () {
+          let id = $("#login_id").val();
+          let pw = $("#login_pw").val();
+          console.log("id: " + id + ", pw: " + pw);
+          if (id && !id.includes(" ") && pw) {
+            $("#login_id_chk").hide();
+            $("#login_pw_chk").hide();
+            let v_form = document.createElement("form");
+            v_form.method = "post";
+            v_form.action = "/member/login";
+            let id_chk = document.createElement("input");
+            id_chk.setAttribute("type", "hidden");
+            id_chk.setAttribute("name", "id");
+            id_chk.setAttribute("value", id);
+            v_form.appendChild(id_chk);
+            let pw_chk = document.createElement("input");
+            pw_chk.setAttribute("type", "hidden");
+            pw_chk.setAttribute("name", "pw");
+            pw_chk.setAttribute("value", pw);
+            v_form.appendChild(pw_chk);
+            document.body.appendChild(v_form);
+            v_form.submit();
+          } else {
+            if (!id || id.includes(" ")) {
+              $("#login_id_chk").text("올바른 ID 형식이 아닙니다.");
+              $("#login_id_chk").show();
+            } else {
+              $("#login_id_chk").hide();
+            }
+            if (!pw) {
+              $("#login_pw_chk").text("올바른 비밀번호 형식이 아닙니다.");
+              $("#login_pw_chk").show();
+            } else {
+              $("#login_pw_chk").hide();
+            }
+          }
+        });
+      });
+    </script>
+    
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
