@@ -38,11 +38,11 @@ public class MemberController {
 		switch (result.getSerial_no()) {
 		case -1:
 			log.error("** MemberController - login Error **");
-			log.error("�엯�젰�븳 ID�뿉 �빐�떦�븯�뒗 �쉶�썝�씠 �뾾�쓬");
+			log.error("占쎌뿯占쎌젾占쎈립 ID占쎈퓠 占쎈퉸占쎈뼣占쎈릭占쎈뮉 占쎌돳占쎌뜚占쎌뵠 占쎈씨占쎌벉");
 			break;
 		case -2:
 			log.error("** MemberController - login Error **");
-			log.error("�엯�젰�븳 鍮꾨�踰덊샇媛� �옒紐삳맖");
+			log.error("占쎌뿯占쎌젾占쎈립 �뜮袁⑨옙甕곕뜇�깈揶쏉옙 占쎌삋筌륁궠留�");
 			break;
 		default:
 			log.info(result.toString());

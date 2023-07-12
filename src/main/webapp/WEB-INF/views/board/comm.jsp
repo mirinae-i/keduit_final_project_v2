@@ -206,6 +206,7 @@
         </div>
     </section>
     <!-- Shoping Cart Section End -->
+    <!-- TEST -->
     
    <jsp:include page="../include/footer.jsp"></jsp:include>
 
