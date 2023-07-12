@@ -6,17 +6,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.domain.member.MemberDTO;
 import com.team2.service.member.MemberService;
+import com.team2.util.BCrypt;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -114,7 +113,7 @@ public class MemberController {
 		Integer result = memberService.join(memberDTO);
 		if (result != null && result == 1) {
 			log.info("** 회원 가입 결과: {} **", result);
-			rttr.addAttribute("join_result", result);
+			rttr.addFlashAttribute("join_result", result);
 		} else {
 			log.error("** MemberController - join(POST) Error **");
 			log.error("** 회원 가입 실패 **");
@@ -125,9 +124,8 @@ public class MemberController {
 	@GetMapping("/join_result")
 	public void joinResult(RedirectAttributes rttr) {
 		log.info("** MemberController - join_result **");
-		log.info("** join_result: {} **", rttr.getAttribute("join_result"));
 	}
-	
+
 	@PostMapping("/modify_member")
 	public String modifyAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, RedirectAttributes rttr) {
 		log.info("** MemberController - modify_member **");
@@ -142,18 +140,52 @@ public class MemberController {
 		}
 		return "redirect:/member/modify_member_result";
 	}
-	
+
 	@GetMapping("/modify_member_result")
 	public void modifyMemberResult(RedirectAttributes rttr) {
 		log.info("** MemberController - modify_member_result **");
 	}
-	
+
 	@GetMapping("/modify_complete")
 	public String modifyComplete(HttpServletRequest request, HttpServletResponse response) {
 		log.info("** MemberController - modify_complete **");
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "redirect:/member/sign";
+	}
+
+	@GetMapping("/leave")
+	public void leave() {
+		log.info("** MemberController - leave(GET) **");
+	}
+
+	@PostMapping("/leave")
+	public String leaveAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, RedirectAttributes rttr,
+			HttpServletRequest request, HttpServletResponse response) {
+		log.info("** MemberController - leave(POST) **");
+		HttpSession session = request.getSession();
+		MemberDTO sessionDTO = (MemberDTO) session.getAttribute("Member");
+		log.info("** Parameter PW: {} **", memberDTO.getPw());
+		log.info("** Session PW: {} **", sessionDTO.getPw());
+		// 입력값으로 받은 비밀번호가 회원 정보의 비밀번호(세션)와 일치하는지 체크
+		boolean condition = BCrypt.checkpw(memberDTO.getPw(), sessionDTO.getPw());
+		log.info("** 비밀번호 일치 여부: {} **", condition);
+		if (condition) {
+			Integer result = memberService.remove(sessionDTO.getSerial_no());
+			rttr.addFlashAttribute("leave_result", result);
+			log.info("** 비밀번호가 일치함(leave_result: {})", result.toString());
+		} else {
+			log.error("** 비밀번호가 일치하지 않음(leave_result: null) **");
+		}
+		return "redirect:/member/leave_complete";
+	}
+
+	@GetMapping("/leave_complete")
+	public String leaveComplete(HttpServletRequest request, HttpServletResponse response) {
+		log.info("** MemberController - modify_complete **");
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "/member/leave_complete";
 	}
 
 }

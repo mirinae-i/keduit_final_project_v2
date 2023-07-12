@@ -86,8 +86,9 @@ public class MemberServiceImpl implements MemberService<MemberDTO, Integer> {
 
 	@Override
 	public Integer remove(Integer key) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberDTO dto = new MemberDTO();
+		dto.setSerial_no(key);
+		return mapper.updateValid(dto);
 	}
 
 	private String encrypt(String plain) {

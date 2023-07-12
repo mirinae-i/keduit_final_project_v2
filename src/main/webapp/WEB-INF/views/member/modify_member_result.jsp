@@ -17,7 +17,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       </c:when>
       <c:otherwise>
         <p>회원 정보를 수정하지 못했습니다.</p>
-        <p><a href="redirect:/member/show_member_info">나의 정보 화면으로</a></p>
+        <p><a href="/member/show_member_info">나의 정보 화면으로</a></p>
       </c:otherwise>
     </c:choose>
   </body>

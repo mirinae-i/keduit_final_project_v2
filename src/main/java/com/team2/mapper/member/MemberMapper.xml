@@ -38,4 +38,12 @@
 			`id` = #{id}
 	</update>
 	
+	<update id="updateValid" parameterType="Integer" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		UPDATE `member`
+		SET
+			`leave_date` = (now()), `valid` = 0
+		WHERE
+			`serial_no` = #{serial_no}
+	</update>
+	
 </mapper>
