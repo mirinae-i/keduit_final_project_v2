@@ -7,7 +7,7 @@
 
 	<select id="preLogin" parameterType="com.team2.domain.member.MemberDTO" resultType="com.team2.domain.member.MemberDTO">
 		SELECT
-			`serial_no`, `pw`
+			`serial_no`, `pw`, `valid`
 		FROM
 			`member`
 		WHERE
@@ -22,5 +22,28 @@
 		WHERE
 			`id` = #{id}
 	</select>
+	
+	<insert id="join" parameterType="com.team2.domain.member.MemberDTO" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		INSERT INTO `member`
+			(`id`, `pw`, `email`, `name`)
+		VALUES
+			(#{id}, #{pw}, #{email}, #{name})
+	</insert>
+	
+	<update id="update" parameterType="com.team2.domain.member.MemberDTO" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		UPDATE `member`
+		SET
+			`pw` = #{pw}, `name` = #{name}, `email` = #{email}
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<update id="updateValid" parameterType="Integer" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		UPDATE `member`
+		SET
+			`leave_date` = (now()), `valid` = 0
+		WHERE
+			`serial_no` = #{serial_no}
+	</update>
 	
 </mapper>
