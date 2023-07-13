@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,8 +11,8 @@ pageEncoding="UTF-8"%>
     <h1>세션 상태</h1>
     <hr />
     <c:choose>
-      <c:when test="${isLogOn eq true}">
-        <p><a href="/member/logout">${Member.name} (로그아웃)</a></p>
+      <c:when test="${is_logon eq true and member ne null}">
+        <p><a href="/member/logout">${member.name} (로그아웃)</a></p>
         <p><a href="/member/show_member_info">나의 정보</a></p>
       </c:when>
       <c:otherwise>
