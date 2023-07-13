@@ -26,5 +26,12 @@ public class LocationAPIServiceImpl implements LocationAPIService {
 	public List<LocationDTO> showList() {
 		return mapper.getXY();
 	}
+	
+	@Override
+    public List<LocationDTO> searchLocationsByKeyword(String keyword) {
+        return mapper.searchLocationsByKeyword(keyword);
+    }
+	
+	
 
 }

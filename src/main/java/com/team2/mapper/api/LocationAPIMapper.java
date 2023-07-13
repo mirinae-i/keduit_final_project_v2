@@ -8,4 +8,6 @@ public interface LocationAPIMapper {
 	
 	public List<LocationDTO> getXY();
 	
+	public List<LocationDTO> searchLocationsByKeyword(String keyword);
+	
 }

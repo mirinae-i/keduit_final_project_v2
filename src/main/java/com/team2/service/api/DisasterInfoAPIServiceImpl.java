@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.team2.domain.api.DisasterInfoDTO;
+import com.team2.domain.api.LocationDTO;
 import com.team2.util.RestAPIUtil;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 		return null;
 	}
 
-	// API를 호출하기 위한 양식 작성 메소드, RestAPIUtil을 통해 호출
+	// API瑜� �샇異쒗븯湲� �쐞�븳 �뼇�떇 �옉�꽦 硫붿냼�뱶, RestAPIUtil�쓣 �넻�빐 �샇異�
 	private DisasterInfoDTO prepareAPICall() {
 		// head
 		Map<String, String> head = new HashMap<>();
@@ -44,6 +45,12 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 		body.put("type", "xml");
 		// return
 		return RestAPIUtil.connHttpGetType(URL, head, body, DisasterInfoDTO.class);
+	}
+
+	@Override
+	public List<LocationDTO> searchLocationsByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

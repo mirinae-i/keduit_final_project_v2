@@ -13,9 +13,15 @@
     </style>
 </head>
 <body>
+
+<form action="/api/search">
+        <input type="text" name="keyword" placeholder="키워드를 입력하세요">
+        <input type="submit" value="검색"/>
+</form>
+
     <div id="map"></div>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d3d41b627ce3372471984145a540e440&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7b9ac432ac6ac82b56574b8ede8f6c14&libraries=services"></script>
     <script>
     var mapContainer = document.getElementById('map');
     var mapOption = {
@@ -44,24 +50,50 @@
             image: new kakao.maps.MarkerImage(markerImageSrc, new kakao.maps.Size(50, 50))
         });
         
-        <c:forEach items="${locationList}" var="location">
-        var wtmX = ${location.x};
-        var wtmY = ${location.y};
+        <c:choose>
+        	<c:when test="${keywordList eq null}">
+        		<c:forEach items="${locationList}" var="location">
+           			var wtmX = ${location.x};
+            		var wtmY = ${location.y};
 
-        // WTM 좌표를 WGS84 좌표계의 좌표로 변환
-        geocoder.transCoord(wtmX, wtmY, function(result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                // 변환된 좌표를 사용하여 마커 생성 및 지도에 추가
-                var marker = new kakao.maps.Marker({
-                    position: new kakao.maps.LatLng(result[0].y, result[0].x),
-                    map: map
-                });
-            }
-        }, {
-            input_coord: kakao.maps.services.Coords.WTM,
-            output_coord: kakao.maps.services.Coords.WGS84
-        });
-    </c:forEach>
+            		// WTM 좌표를 WGS84 좌표계의 좌표로 변환
+            		geocoder.transCoord(wtmX, wtmY, function(result, status) {
+                		if (status === kakao.maps.services.Status.OK) {
+                    		// 변환된 좌표를 사용하여 마커 생성 및 지도에 추가
+                    		var marker = new kakao.maps.Marker({
+                        		position: new kakao.maps.LatLng(result[0].y, result[0].x),
+                        		map: map
+                    		});
+                		}
+            		}, {
+                		input_coord: kakao.maps.services.Coords.WTM,
+                		output_coord: kakao.maps.services.Coords.WGS84
+            		});
+        		</c:forEach>
+        	</c:when>
+        	<c:otherwise>
+        		<c:forEach items="${locationList}" var="location">
+   					var wtmX = ${location.x};
+    				var wtmY = ${location.y};
+
+    				// WTM 좌표를 WGS84 좌표계의 좌표로 변환
+    				geocoder.transCoord(wtmX, wtmY, function(result, status) {
+        				if (status === kakao.maps.services.Status.OK) {
+            				// 변환된 좌표를 사용하여 마커 생성 및 지도에 추가
+            				var marker = new kakao.maps.Marker({
+                				position: new kakao.maps.LatLng(result[0].y, result[0].x),
+                				map: map
+            				});
+        				}
+    				}, {
+        				input_coord: kakao.maps.services.Coords.WTM,
+        				output_coord: kakao.maps.services.Coords.WGS84
+    				});
+				</c:forEach>
+        	</c:otherwise>
+        </c:choose>
+        
+        
 
         
     });
