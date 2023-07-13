@@ -40,35 +40,47 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public ModelAndView login(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String loginAction(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
+			HttpServletResponse response, RedirectAttributes rttr) {
 		log.info("** MemberController - login **");
-		log.info("Login id: {}, pw: {}", memberDTO.getId(), memberDTO.getPw());
+		log.info("** Login id: {}, pw: {} **", memberDTO.getId(), memberDTO.getPw());
+		// 로그인
 		MemberDTO result = memberService.login(memberDTO);
 		switch (result.getSerial_no()) {
 		case -1:
 			log.error("** MemberController - login Error **");
 			log.error("** 입력한 ID가 잘못됨 **");
-			request.setAttribute("MemberNo", result.getSerial_no());
+			rttr.addFlashAttribute("member_no", result.getSerial_no());
 			break;
 		case -2:
 			log.error("** MemberController - login Error **");
 			log.error("** 입력한 비밀번호가 회원 정보와 일치하지 않음 **");
-			request.setAttribute("MemberNo", result.getSerial_no());
+			rttr.addFlashAttribute("member_no", result.getSerial_no());
 			break;
 		case -3:
 			log.error("** MemberController - login Error **");
 			log.error("** 이미 탈퇴한 회원 **");
-			request.setAttribute("MemberNo", result.getSerial_no());
+			rttr.addFlashAttribute("member_no", result.getSerial_no());
 			break;
 		default:
-			log.info(result.toString());
+			log.info("** {} **", result.toString());
 			HttpSession session = request.getSession();
-			request.setAttribute("MemberNo", result.getSerial_no());
-			session.setAttribute("isLogOn", true);
-			session.setAttribute("Member", result);
+			rttr.addFlashAttribute("member_no", result.getSerial_no());
+			session.setAttribute("is_logon", true);
+			session.setAttribute("member", result);
+			log.info("** /login(POST) is_logon: {} **", session.getAttribute("is_logon"));
+			log.info("** /login(POST) member: {} **", session.getAttribute("member"));
 			break;
 		}
+		return "redirect:/member/login";
+	}
+
+	@GetMapping("/login")
+	public ModelAndView login(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
+			HttpServletResponse response, RedirectAttributes rttr) {
+		HttpSession session = request.getSession();
+		log.info("** /login(GET) is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /login(GET) member: {} **", session.getAttribute("member"));
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/login");
 		return mav;
@@ -78,9 +90,18 @@ public class MemberController {
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		log.info("** MemberController - logout **");
 		HttpSession session = request.getSession();
-		boolean isLogOn = (boolean) session.getAttribute("isLogOn");
+		log.info("** /logout BEFORE is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /logout BEFORE member: {} **", session.getAttribute("member"));
+		boolean isLogOn = (boolean) session.getAttribute("is_logon");
 		if (isLogOn) {
 			session.invalidate();
+			request.getSession(true);
+		}
+		try {
+			log.info("** /logout AFTER is_logon: {} **", session.getAttribute("is_logon"));
+			log.info("** /logout AFTER member: {} **", session.getAttribute("member"));
+		} catch (IllegalStateException ie) {
+			log.info("** /logout 세션 만료됨 **");
 		}
 		return "redirect:/member/main";
 	}
@@ -90,8 +111,10 @@ public class MemberController {
 			HttpServletResponse response) {
 		log.info("** MemberController - show_member_info **");
 		HttpSession session = request.getSession();
-		if (session.getAttribute("Member") != null) {
-			memberDTO = (MemberDTO) session.getAttribute("Member");
+		log.info("** /show_member_info is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /show_member_info member: {} **", session.getAttribute("member"));
+		if (session.getAttribute("member") != null) {
+			memberDTO = (MemberDTO) session.getAttribute("member");
 		} else {
 			log.error("** MemberController - show_member_info Error **");
 			log.error("** 세션에 MemberDTO가 존재하지 않음 **");
@@ -122,8 +145,21 @@ public class MemberController {
 	}
 
 	@GetMapping("/join_result")
-	public void joinResult(RedirectAttributes rttr) {
+	public void joinResult(HttpServletRequest request, RedirectAttributes rttr) {
 		log.info("** MemberController - join_result **");
+		HttpSession session = request.getSession();
+		log.info("** /join_result BEFORE is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /join_result BEFORE member: {} **", session.getAttribute("member"));
+		if (session.getAttribute("is_logon") != null) {
+			session.invalidate();
+			request.getSession(true);
+		}
+		try {
+			log.info("** /join_result AFTER is_logon: {} **", session.getAttribute("is_logon"));
+			log.info("** /join_result AFTER member: {} **", session.getAttribute("member"));
+		} catch (IllegalStateException ie) {
+			log.info("** /join_result 세션 만료됨 **");
+		}
 	}
 
 	@PostMapping("/modify_member")
@@ -150,7 +186,19 @@ public class MemberController {
 	public String modifyComplete(HttpServletRequest request, HttpServletResponse response) {
 		log.info("** MemberController - modify_complete **");
 		HttpSession session = request.getSession();
-		session.invalidate();
+		log.info("** /modify_complete BEFORE is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /modify_complete BEFORE member: {} **", session.getAttribute("member"));
+		boolean isLogOn = (boolean) session.getAttribute("is_logon");
+		if (isLogOn) {
+			session.invalidate();
+			request.getSession(true);
+		}
+		try {
+			log.info("** /modify_complete AFTER is_logon: {} **", session.getAttribute("is_logon"));
+			log.info("** /modify_complete AFTER member: {} **", session.getAttribute("member"));
+		} catch (IllegalStateException ie) {
+			log.info("** /modify_complete 세션 만료됨 **");
+		}
 		return "redirect:/member/sign";
 	}
 
@@ -164,7 +212,9 @@ public class MemberController {
 			HttpServletRequest request, HttpServletResponse response) {
 		log.info("** MemberController - leave(POST) **");
 		HttpSession session = request.getSession();
-		MemberDTO sessionDTO = (MemberDTO) session.getAttribute("Member");
+		log.info("** /leave(POST) is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /leave(POST) member: {} **", session.getAttribute("member"));
+		MemberDTO sessionDTO = (MemberDTO) session.getAttribute("member");
 		log.info("** Parameter PW: {} **", memberDTO.getPw());
 		log.info("** Session PW: {} **", sessionDTO.getPw());
 		// 입력값으로 받은 비밀번호가 회원 정보의 비밀번호(세션)와 일치하는지 체크
@@ -173,7 +223,7 @@ public class MemberController {
 		if (condition) {
 			Integer result = memberService.remove(sessionDTO.getSerial_no());
 			rttr.addFlashAttribute("leave_result", result);
-			log.info("** 비밀번호가 일치함(leave_result: {})", result.toString());
+			log.info("** 비밀번호가 일치함(leave_result: {})", result);
 		} else {
 			log.error("** 비밀번호가 일치하지 않음(leave_result: null) **");
 		}
@@ -181,10 +231,22 @@ public class MemberController {
 	}
 
 	@GetMapping("/leave_complete")
-	public String leaveComplete(HttpServletRequest request, HttpServletResponse response) {
+	public String leaveComplete(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr) {
 		log.info("** MemberController - modify_complete **");
 		HttpSession session = request.getSession();
-		session.invalidate();
+		log.info("** /leave_complete BEFORE is_logon: {} **", session.getAttribute("is_logon"));
+		log.info("** /leave_complete BEFORE member: {} **", session.getAttribute("member"));
+		boolean isLogOn = (boolean) session.getAttribute("is_logon");
+		if (isLogOn) {
+			session.invalidate();
+			request.getSession(true);
+		}
+		try {
+			log.info("** /leave_complete AFTER is_logon: {} **", session.getAttribute("is_logon"));
+			log.info("** /leave_complete AFTER member: {} **", session.getAttribute("member"));
+		} catch (IllegalStateException ie) {
+			log.info("** /modify_complete 세션 만료됨 **");
+		}
 		return "/member/leave_complete";
 	}
 

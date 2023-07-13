@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -24,58 +25,66 @@
         <h1>회원 가입</h1>
         <hr />
       </div>
-      <!-- 회원 가입 -->
-      <div>
-        <form>
-          <div class="row">
-            <div class="col col-md-2">
-              <label for="join_id">ID: </label>
-            </div>
-            <div class="col col-md-10">
-              <input id="join_id" type="text" />
-              <label id="join_id_chk" style="display: none"></label>
-            </div>
+      <c:choose>
+        <c:when test="${is_logon ne true and member eq null}">
+          <!-- 회원 가입 -->
+          <div>
+            <form>
+              <div class="row">
+                <div class="col col-md-2">
+                  <label for="join_id">ID: </label>
+                </div>
+                <div class="col col-md-10">
+                  <input id="join_id" type="text" />
+                  <label id="join_id_chk" style="display: none"></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-2">
+                  <label for="join_pw">비밀번호: </label>
+                </div>
+                <div class="col col-md-10">
+                  <input id="join_pw" type="password" />
+                  <label id="join_pw_chk" style="display: none"></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-2">
+                  <label for="join_pw_re">비밀번호 다시 입력: </label>
+                </div>
+                <div class="col col-md-10">
+                  <input id="join_pw_re" type="password" />
+                  <label id="join_pw_re_chk" style="display: none"></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-2">
+                  <label for="join_name">닉네임: </label>
+                </div>
+                <div class="col col-md-10">
+                  <input id="join_name" type="text" />
+                  <label id="join_name_chk" style="display: none"></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-2">
+                  <label for="join_email">이메일: </label>
+                </div>
+                <div class="col col-md-10">
+                  <input id="join_email" type="email" />
+                  <label id="join_email_chk" style="display: none"></label>
+                </div>
+              </div>
+              <input id="join_btn" type="button" value="확인" />
+              <button type="reset">다시 입력</button>
+            </form>
           </div>
-          <div class="row">
-            <div class="col col-md-2">
-              <label for="join_pw">비밀번호: </label>
-            </div>
-            <div class="col col-md-10">
-              <input id="join_pw" type="password" />
-              <label id="join_pw_chk" style="display: none"></label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col col-md-2">
-              <label for="join_pw_re">비밀번호 다시 입력: </label>
-            </div>
-            <div class="col col-md-10">
-              <input id="join_pw_re" type="password" />
-              <label id="join_pw_re_chk" style="display: none"></label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col col-md-2">
-              <label for="join_name">닉네임: </label>
-            </div>
-            <div class="col col-md-10">
-              <input id="join_name" type="text" />
-              <label id="join_name_chk" style="display: none"></label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col col-md-2">
-              <label for="join_email">이메일: </label>
-            </div>
-            <div class="col col-md-10">
-              <input id="join_email" type="email" />
-              <label id="join_email_chk" style="display: none"></label>
-            </div>
-          </div>
-          <input id="join_btn" type="button" value="확인" />
-          <button type="reset">다시 입력</button>
-        </form>
-      </div>
+        </c:when>
+        <c:otherwise>
+          <p>잘못된 요청입니다.</p>
+          <p><a href="/member/main">메인 페이지로</a></p>
+        </c:otherwise>
+      </c:choose>
     </div>
     <script>
       $(function () {

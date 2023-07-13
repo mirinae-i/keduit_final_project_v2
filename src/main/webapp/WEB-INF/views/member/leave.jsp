@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -17,15 +17,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </style>
   </head>
   <body>
-    <h1>회원 탈퇴</h1>
-    <hr />
-    <p id="r_warn">회원을 탈퇴하려면 비밀번호를 입력하세요.</p>
-    <form>
-      <input id="r_pw" type="password" class="col-md-4" placeholder="비밀번호를 입력하세요." />
-      <input id="r_btn" type="button" value="확인" />
-      <label id="r_pw_chk" style="display: none"></label>
-    </form>
-    <p><a href="/member/show_member_info">뒤로가기 (나의 정보 화면으로 이동)</a></p>
+    <c:choose>
+      <c:when test="${is_logon eq true and member ne null}">
+        <h1>회원 탈퇴</h1>
+        <hr />
+        <p id="r_warn">회원을 탈퇴하려면 비밀번호를 입력하세요.</p>
+        <form>
+          <input id="r_pw" type="password" class="col-md-4" placeholder="비밀번호를 입력하세요." />
+          <input id="r_btn" type="button" value="확인" />
+          <label id="r_pw_chk" style="display: none"></label>
+        </form>
+        <p><a href="/member/show_member_info">뒤로가기 (나의 정보 화면으로 이동)</a></p>
+      </c:when>
+      <c:otherwise>
+        <p>잘못된 요청입니다.</p>
+        <p><a href="/member/main">메인 페이지로</a></p>
+      </c:otherwise>
+    </c:choose>
   </body>
   <script>
     $(function () {

@@ -23,7 +23,7 @@
     <h1>내 정보 보기</h1>
     <hr />
     <c:choose>
-      <c:when test="${Member ne null}">
+      <c:when test="${is_logon eq true and member.name ne null}">
         <%-- 로그인중일 때 시작 --%>
         <form>
           <div class="row">
@@ -31,7 +31,7 @@
               <label class="col" for="m_id">ID: </label>
             </div>
             <div class="col-md-9">
-              <label id="m_id" class="col">${Member.id}</label>
+              <label id="m_id" class="col">${member.id}</label>
             </div>
           </div>
           <div class="row">
@@ -44,11 +44,11 @@
                 width="auto"
                 id="m_pw"
                 type="text"
-                value="${Member.pw}"
+                value="${member.pw}"
                 placeholder="새로 사용할 비밀번호를 입력하세요."
                 disabled
               />
-              <label id="m_pw_chk" class="col" style="display: none">ASDF</label>
+              <label id="m_pw_chk" class="col" style="display: none"></label>
             </div>
           </div>
           <div id="pw_recheck" class="row" style="display: none">
@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-9">
               <input class="col" width="auto" id="m_pw_re" type="text" value="" placeholder="비밀번호를 다시 입력해주세요." />
-              <label id="m_pw_re_chk" class="col" style="display: none">ASDF</label>
+              <label id="m_pw_re_chk" class="col" style="display: none"></label>
             </div>
           </div>
           <div class="row">
@@ -65,8 +65,8 @@
               <label class="col" for="m_name">닉네임: </label>
             </div>
             <div class="col-md-9">
-              <input class="col" id="m_name" type="text" value="${Member.name}" placeholder="새로 사용할 닉네임을 입력하세요." disabled />
-              <label id="m_name_chk" class="col" style="display: none">ASDF</label>
+              <input class="col" id="m_name" type="text" value="${member.name}" placeholder="새로 사용할 닉네임을 입력하세요." disabled />
+              <label id="m_name_chk" class="col" style="display: none"></label>
             </div>
           </div>
           <div class="row">
@@ -75,13 +75,13 @@
             </div>
             <div class="col-md-9">
               <c:choose>
-                <c:when test="${Member.grade eq 9}">
+                <c:when test="${member.grade eq 9}">
                   <label class="col">최고 관리자</label>
                 </c:when>
-                <c:when test="${Member.grade eq 1}">
+                <c:when test="${member.grade eq 1}">
                   <label class="col">일반 회원</label>
                 </c:when>
-                <c:when test="${Member.grade ge 2 and Member.grade le 8}">
+                <c:when test="${member.grade ge 2 and member.grade le 8}">
                   <label class="col">관리자</label>
                 </c:when>
                 <c:otherwise>
@@ -99,19 +99,19 @@
                 class="col"
                 id="m_email"
                 type="email"
-                value="${Member.email}"
+                value="${member.email}"
                 placeholder="새로 사용할 이메일 주소를 입력하세요."
                 disabled
               />
             </div>
-            <label id="m_email_chk" class="col" style="display: none">ASDF</label>
+            <label id="m_email_chk" class="col" style="display: none"></label>
           </div>
           <div class="row">
             <div class="col-md-2">
               <label class="col" for="m_join_date">가입일: </label>
             </div>
             <div class="col-md-9">
-              <label class="col">${Member.join_date}</label>
+              <label class="col">${member.join_date}</label>
             </div>
           </div>
         </form>
@@ -123,15 +123,15 @@
           <button id="modify_cancel_btn" style="display: none">취소</button>
           <c:choose>
             <%-- 일반 회원이면 탈퇴 가능, 관리자는 회원 탈퇴 불가 --%>
-            <c:when test="${Member.grade eq 1}">
+            <c:when test="${member.grade eq 1}">
               <button id="delete_btn">회원 탈퇴</button>
             </c:when>
             <%-- 최고 관리자 메뉴: 회원 목록 조회 가능 --%>
-            <c:when test="${Member.grade eq 9}">
+            <c:when test="${member.grade eq 9}">
               <button id="list_btn">회원 목록 관리</button>
             </c:when>
             <%-- 일반 관리자 메뉴 --%>
-            <c:when test="${Member.grade ge 2 and Member.grade le 8}"></c:when>
+            <c:when test="${member.grade ge 2 and member.grade le 8}"></c:when>
             <c:otherwise></c:otherwise>
           </c:choose>
         </span>

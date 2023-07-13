@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -11,13 +11,21 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <h1>회원 정보 수정 결과</h1>
     <hr />
     <c:choose>
-      <c:when test="${modify_result eq 1}">
-        <p>회원 정보 수정이 성공적으로 완료되었습니다. 다시 로그인해주세요.</p>
-        <p><a href="/member/modify_complete">로그인 화면으로</a></p>
+      <c:when test="${modify_result ne null}">
+        <c:choose>
+          <c:when test="${modify_result eq 1}">
+            <p>회원 정보 수정이 성공적으로 완료되었습니다. 다시 로그인해주세요.</p>
+            <p><a href="/member/modify_complete">로그인 화면으로</a></p>
+          </c:when>
+          <c:otherwise>
+            <p>회원 정보를 수정하지 못했습니다.</p>
+            <p><a href="/member/show_member_info">나의 정보 화면으로</a></p>
+          </c:otherwise>
+        </c:choose>
       </c:when>
       <c:otherwise>
-        <p>회원 정보를 수정하지 못했습니다.</p>
-        <p><a href="/member/show_member_info">나의 정보 화면으로</a></p>
+        <p>잘못된 요청입니다.</p>
+        <p><a href="/member/main">메인 페이지로</a></p>
       </c:otherwise>
     </c:choose>
   </body>
