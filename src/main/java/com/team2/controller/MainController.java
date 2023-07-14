@@ -151,12 +151,29 @@ public class MainController {
 		
 
 	}
+	
+	@GetMapping("/main/shop")
+	public void shop() {
+		log.info("shop!!!");
+		
 
+	}
+
+	
+	
+	@GetMapping("/main/index")
+	public void index() {
+		log.info("shop!!!");
+		
+
+	}
+
+	
 	
 
 
 	
-	
+
 	
 	
 	
