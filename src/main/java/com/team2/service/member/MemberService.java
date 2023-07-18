@@ -1,5 +1,7 @@
 package com.team2.service.member;
 
+import org.springframework.dao.DataIntegrityViolationException;
+
 public interface MemberService<VO> {
 	
 	// 일반 회원/관리자 체크
@@ -20,7 +22,7 @@ public interface MemberService<VO> {
 	public void logout();
 	
 	// 회원 가입
-	public Integer join(VO vo);
+	public Integer join(VO vo) throws DataIntegrityViolationException;
 	
 	// 회원정보 수정
 	public Integer modify(VO vo);

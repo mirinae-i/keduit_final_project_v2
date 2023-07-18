@@ -5,4 +5,27 @@
 
 <mapper namespace="com.team2.mapper.member.MemberMapper">
 
+	<select id="preLogin" parameterType="com.team2.domain.member.MemberDTO" resultType="com.team2.domain.member.MemberDTO">
+		<![CDATA[
+			SELECT `serial_no`, `id`, `pw`, `valid`
+			FROM `member`
+			WHERE `id` = #{id} AND `valid` != 0
+		]]>
+	</select>
+	
+	<select id="login" parameterType="com.team2.domain.member.MemberDTO" resultType="com.team2.domain.member.MemberDTO">
+		<![CDATA[
+			SELECT `serial_no`, `id`, `grade`, `pw`, `email`, `name`, `join_date`, `leave_date`, `valid`
+			FROM `member`
+			WHERE `id` = #{id} AND `valid` != 0
+		]]>
+	</select>
+	
+	<insert id="join" parameterType="com.team2.domain.member.MemberDTO" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		<![CDATA[
+			INSERT INTO `member`(`id`, `pw`, `name`, `email`)
+			VALUES(#{id}, #{pw}, #{name}, #{email})
+		]]>
+	</insert>
+
 </mapper>
