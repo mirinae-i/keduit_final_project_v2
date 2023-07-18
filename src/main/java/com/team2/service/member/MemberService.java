@@ -25,7 +25,7 @@ public interface MemberService<VO> {
 	public Integer join(VO vo) throws DataIntegrityViolationException;
 	
 	// 회원정보 수정
-	public Integer modify(VO vo);
+	public Integer modify(VO vo) throws DataIntegrityViolationException;
 
 	// 회원 탈퇴
 	public Integer remove(VO vo);

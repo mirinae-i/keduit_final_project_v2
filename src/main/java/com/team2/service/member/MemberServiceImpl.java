@@ -76,9 +76,9 @@ public class MemberServiceImpl implements MemberService<MemberDTO> {
 	}
 
 	@Override
-	public Integer modify(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer modify(MemberDTO dto) throws DataIntegrityViolationException {
+		dto.setPw(encrypt(dto.getPw()));
+		return mapper.update(dto);
 	}
 
 	@Override

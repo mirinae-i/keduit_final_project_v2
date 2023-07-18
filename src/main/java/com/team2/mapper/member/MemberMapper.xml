@@ -27,5 +27,13 @@
 			VALUES(#{id}, #{pw}, #{name}, #{email})
 		]]>
 	</insert>
+	
+	<update id="update" parameterType="com.team2.domain.member.MemberDTO" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		<![CDATA[
+			UPDATE `member`
+			SET `pw` = #{pw}, `name` = #{name}, `email` = #{email}
+			WHERE `id` = #{id}
+		]]>
+	</update>
 
 </mapper>

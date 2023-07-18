@@ -12,7 +12,7 @@
       <c:when test="${member ne null}">
         <p>${member.name} (${member.serial_no})</p>  
         <p><a href="/member/logout">로그아웃</a></p>
-        <p><a href="/member/mypage">마이페이지</a></p>
+        <p><a href="/member/my_info">마이페이지</a></p>
       </c:when>
       <c:otherwise>
         <p><a href="/member/login">로그인</a></p>

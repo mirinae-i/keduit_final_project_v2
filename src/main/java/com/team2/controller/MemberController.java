@@ -82,7 +82,7 @@ public class MemberController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/join_action")
+	@RequestMapping(value = "/join_action", method = RequestMethod.POST)
 	public String joinAction(MemberDTO memberDTO, HttpSession session) {
 		log.info("** MemberController /loginAction(POST) **");
 		log.info("** Session: {} **", session);
@@ -111,6 +111,54 @@ public class MemberController {
 			}
 		}
 		return resultMsg;
+	}
+
+	@RequestMapping(value = "/my_info", method = RequestMethod.GET)
+	public String myInfoView(HttpSession session) {
+		log.info("** MemberController /my_info(GET) **");
+		log.info("** Session: {} **", session);
+		log.info("** Member info: {} **", session.getAttribute("member"));
+		return "/member/myinfo";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/modify_action", method = RequestMethod.POST)
+	public String modifyAction(MemberDTO memberDTO, HttpSession session) {
+		log.info("** MemberController /modifyAction(POST) **");
+		log.info("** Session: {} **", session);
+		log.info("** ID: {}, PW: {}, name: {}, email: {} **", memberDTO.getId(), memberDTO.getPw(), memberDTO.getName(),
+				memberDTO.getEmail());
+		String resultMsg = "Fail";
+		try {
+			int result = memberService.modify(memberDTO);
+			if (result == 1) {
+				return "Success";
+			}
+		} catch (DataIntegrityViolationException e) {
+			String cause = e.getCause().toString();
+			if (cause.contains("member.id")) {
+				log.error("** modifyAction ERROR: {} **", e.getMessage());
+				resultMsg = "Duplicate_ID";
+			} else if (cause.contains("member.name")) {
+				log.error("** modifyAction ERROR: {} **", e.getMessage());
+				resultMsg = "Duplicate_Name";
+			} else if (cause.contains("member.email")) {
+				log.error("** modifyAction ERROR: {} **", e.getMessage());
+				resultMsg = "Duplicate_Email";
+			} else {
+				log.error("** modifyAction ERROR: {} **", e.getMessage());
+				resultMsg = "SQL_ERROR";
+			}
+		}
+		return resultMsg;
+	}
+	
+	@RequestMapping
+	public String modifyComplete(HttpSession session) {
+		log.info("** MemberController /modifyAction(POST) **");
+		log.info("** Session: {} **", session);
+		session.removeAttribute("member");
+		return "redirect:/member/main";
 	}
 
 }
