@@ -35,5 +35,13 @@
 			WHERE `id` = #{id}
 		]]>
 	</update>
+	
+	<update id="updateValid" parameterType="com.team2.domain.member.MemberDTO" useGeneratedKeys="true" keyColumn="serial_no" keyProperty="serial_no">
+		<![CDATA[
+			UPDATE `member`
+			SET `valid` = 0, `leave_date` = (now())
+			WHERE `id` = #{id}
+		]]>
+	</update>
 
 </mapper>

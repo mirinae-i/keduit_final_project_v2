@@ -83,8 +83,22 @@ public class MemberServiceImpl implements MemberService<MemberDTO> {
 
 	@Override
 	public Integer remove(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberDTO plain = dto;
+		MemberDTO hashed = preLogin(plain);
+		if (hashed != null) {
+			boolean isCorrect = BCrypt.checkpw(plain.getPw(), hashed.getPw());
+			if (isCorrect) {
+				// 비밀번호 일치
+				return mapper.updateValid(dto);
+			} else {
+				// 비밀번호 불일치
+				log.error("** MemberServiceImpl remove(): 비밀번호 불일치 **");
+				return -2;
+			}
+		} else {
+			log.error("** MemberServiceImpl remove(): 입력한 ID에 해당하는 회원이 없음 **");
+			return -1;
+		}
 	}
 
 	private String encrypt(String plain) {

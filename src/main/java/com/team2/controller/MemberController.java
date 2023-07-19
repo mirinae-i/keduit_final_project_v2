@@ -152,10 +152,53 @@ public class MemberController {
 		}
 		return resultMsg;
 	}
-	
-	@RequestMapping
+
+	@RequestMapping(value = "/modify_complete", method = RequestMethod.GET)
 	public String modifyComplete(HttpSession session) {
-		log.info("** MemberController /modifyAction(POST) **");
+		log.info("** MemberController /modifyComplete(GET) **");
+		log.info("** Session: {} **", session);
+		session.removeAttribute("member");
+		return "redirect:/member/main";
+	}
+
+	@RequestMapping(value = "/leave", method = RequestMethod.GET)
+	public String leaveView(HttpSession session) {
+		log.info("** MemberController /leave(GET) **");
+		log.info("** Session: {} **", session);
+		log.info("** Member info: {} **", session.getAttribute("member"));
+		return "/member/leave";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/leave_action", method = RequestMethod.POST)
+	public String leaveAction(MemberDTO memberDTO, HttpSession session) {
+		log.info("** MemberController /leaveAction(POST) **");
+		log.info("** Session: {} **", session);
+		log.info("** ID: {}, PW: {} **", memberDTO.getId(), memberDTO.getPw());
+		String resultMsg = "Fail";
+		int result = memberService.remove(memberDTO);
+		switch (result) {
+		case 1:
+			resultMsg = "Success";
+			break;
+		case -1:
+			log.error("** /leaveAction ERROR: 세션에 회원 정보가 없음 **");
+			resultMsg = "Session_Error";
+			break;
+		case -2:
+			log.error("** /leaveAction ERROR: 비밀번호가 일치하지 않음 **");
+			resultMsg = "Fail";
+			break;
+		default:
+			resultMsg = "Fail";
+			break;
+		}
+		return resultMsg;
+	}
+
+	@RequestMapping(value = "/leave_complete", method = RequestMethod.GET)
+	public String leaveComplete(HttpSession session) {
+		log.info("** MemberController /leaveComplete(GET) **");
 		log.info("** Session: {} **", session);
 		session.removeAttribute("member");
 		return "redirect:/member/main";

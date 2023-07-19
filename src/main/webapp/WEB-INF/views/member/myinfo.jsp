@@ -120,6 +120,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     </div>
                     <label id="modify_total_chk" class="modify_chk" style="display: none"></label>
                   </div>
+                  <div class="col-lg-9">
+                    <p><a href="/member/leave">회원 탈퇴</a></p>
+                  </div>
                 </div>
               </div>
             </div>
