@@ -23,7 +23,13 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 	@Override
 	public DisasterInfoDTO show() {
 		log.info("** DisasterInfoAPIServiceImpl - show **");
-		return prepareAPICall();
+		return prepareAPICall(200);
+	}
+
+	@Override
+	public DisasterInfoDTO showAlt() {
+		log.info("** DisasterInfoAPIServiceImpl - showAlt **");
+		return prepareAPICall(10);
 	}
 
 	@Override
@@ -32,7 +38,7 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 	}
 
 	// API를 호출하기 위한 양식 작성 메소드, RestAPIUtil을 통해 호출
-	private DisasterInfoDTO prepareAPICall() {
+	private DisasterInfoDTO prepareAPICall(int amount) {
 		// head
 		Map<String, String> head = new HashMap<>();
 		head.put("Content-type", "application/xml;charset=UTF-8");
@@ -40,7 +46,7 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 		Map<String, String> body = new HashMap<>();
 		body.put("ServiceKey", API_KEY);
 		body.put("pageNo", "1");
-		body.put("numOfRows", "200");
+		body.put("numOfRows", String.valueOf(amount));
 		body.put("type", "xml");
 		// return
 		return RestAPIUtil.connHttpGetType(URL, head, body, DisasterInfoDTO.class);
