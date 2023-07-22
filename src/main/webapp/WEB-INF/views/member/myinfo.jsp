@@ -5,7 +5,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <jsp:include page="../common/header.jsp"></jsp:include>
+    <jsp:include page="../include/header.jsp"></jsp:include>
     <title>마이페이지</title>
     <link rel="stylesheet" href="/resources/css/member/myinfo.css" />
   </head>
@@ -139,7 +139,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       </div>
     </section>
     <!-- Blog Details Section End -->
-    <jsp:include page="../common/footer.jsp"></jsp:include>
+    <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="/resources/js/member/myinfo.js"></script>
   </body>
 </html>

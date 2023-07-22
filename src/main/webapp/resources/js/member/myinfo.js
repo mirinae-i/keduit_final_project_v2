@@ -12,7 +12,7 @@ $(function () {
         modify.modifyCheck();
     });
     $('.goto_main_btn').click(function () {
-        location.href = '/member/main';
+        location.href = '/main/index';
     });
     modify.enableModify = function () {
         $('.modify_frm').removeAttr('readonly');

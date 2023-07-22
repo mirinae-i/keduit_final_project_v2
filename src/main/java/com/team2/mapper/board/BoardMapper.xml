@@ -5,4 +5,62 @@
 	
 <mapper namespace="com.team2.mapper.board.BoardMapper">
 
+
+	<select id="selectAll" resultType="com.team2.domain.board.BoardDTO">
+		SELECT * FROM board
+		WHERE
+		b_no > 0 ORDER BY b_no DESC
+	</select>
+
+	<insert id="insert" parameterType="com.team2.domain.board.BoardDTO">
+		INSERT INTO
+		board (m_id, b_title, b_content)
+		VALUES (#{m_id}, #{b_title}, #{b_content})
+	</insert>
+	
+	<insert id="insertKey" parameterType="com.team2.domain.board.BoardDTO"
+    	keyProperty="b_no" keyColumn="b_no" useGeneratedKeys="true">
+    	INSERT INTO board (b_title, b_content, m_id, b_image)
+    	VALUES (#{b_title}, #{b_content}, #{m_id}, #{imageString}) 
+	</insert>
+
+
+	<select id="select" parameterType="com.team2.domain.board.BoardDTO"
+		resultType="com.team2.domain.board.BoardDTO">
+		SELECT * FROM board
+		WHERE b_no = #{b_no}
+	</select>
+
+	<delete id="delete" parameterType="com.team2.domain.board.BoardDTO">
+		DELETE FROM board
+		WHERE b_no = #{b_no}
+	</delete>
+
+	<update id="update" parameterType="com.team2.domain.board.BoardDTO">
+		UPDATE board
+		SET b_title = #{b_title}, b_content = #{b_content}
+		WHERE b_no = #{b_no}
+	</update>
+	
+	<update id="updateViewCnt">
+		UPDATE board
+		SET b_views = b_views + 1
+		WHERE b_no = #{b_no}
+	</update>
+	
+	<select id="getListWithPasing" resultType="com.team2.domain.board.BoardDTO" parameterType="com.team2.domain.generic.Criteria">
+	    SELECT *
+	    FROM board
+	    WHERE b_no > 0
+		    <if test="type != null and keyword != null and keyword !=''">
+		    	AND ${type} LIKE CONCAT('%',#{keyword},'%')
+		    </if>
+	    ORDER BY b_no DESC
+	    LIMIT #{start}, #{amount}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer">
+		SELECT COUNT(*) FROM board
+		WHERE b_no > 0
+	</select>
 </mapper>

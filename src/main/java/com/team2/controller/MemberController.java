@@ -70,7 +70,7 @@ public class MemberController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.removeAttribute("member");
-		return "redirect:/member/main";
+		return "redirect:/main/index";
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -158,7 +158,7 @@ public class MemberController {
 		log.info("** MemberController /modifyComplete(GET) **");
 		log.info("** Session: {} **", session);
 		session.removeAttribute("member");
-		return "redirect:/member/main";
+		return "redirect:/main/index";
 	}
 
 	@RequestMapping(value = "/leave", method = RequestMethod.GET)
@@ -201,7 +201,7 @@ public class MemberController {
 		log.info("** MemberController /leaveComplete(GET) **");
 		log.info("** Session: {} **", session);
 		session.removeAttribute("member");
-		return "redirect:/member/main";
+		return "redirect:/main/index";
 	}
 
 }

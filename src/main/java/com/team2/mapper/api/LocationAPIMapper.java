@@ -1,5 +1,13 @@
 package com.team2.mapper.api;
 
-public interface LocationAPIMapper {
+import java.util.List;
 
+import com.team2.domain.api.LocationDTO;
+
+public interface LocationAPIMapper {
+	
+	public List<LocationDTO> getXY();
+	
+	public List<LocationDTO> searchLocationsByKeyword(String keyword);
+	
 }

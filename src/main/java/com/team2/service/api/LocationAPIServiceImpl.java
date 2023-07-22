@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.team2.domain.api.LocationDTO;
+import com.team2.mapper.api.LocationAPIMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,16 +15,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LocationAPIServiceImpl implements LocationAPIService {
 
+	LocationAPIMapper mapper;
+
 	@Override
 	public LocationDTO show() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<LocationDTO> showList() {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getXY();
 	}
+	
+	@Override
+    public List<LocationDTO> searchLocationsByKeyword(String keyword) {
+        return mapper.searchLocationsByKeyword(keyword);
+    }
+	
+	
 
 }

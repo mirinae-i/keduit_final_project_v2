@@ -14,7 +14,7 @@ $(function () {
         location.href = '/member/join';
     });
     $('#goto_main_btn').click(function () {
-        location.href = '/member/main';
+        location.href = '/main/index';
     });
     login.checkLogin = function () {
         const param = {
@@ -29,7 +29,7 @@ $(function () {
                 $('#login_id_chk').hide();
                 $('#login_pw_chk').hide();
                 if (data === 'Success') {
-                    location.href = '/member/main';
+                    location.href = '/main/index';
                 } else if (data === 'Not_Found') {
                     $('#login_id_chk').text('존재하지 않는 ID입니다.');
                     $('#login_id_chk').show();

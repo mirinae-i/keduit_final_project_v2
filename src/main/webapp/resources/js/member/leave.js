@@ -8,7 +8,7 @@ $(function () {
         location.href = '/member/my_info';
     });
     $('#goto_main_btn').click(function () {
-        location.href = '/member/main';
+        location.href = '/main/index';
     });
     leave.leaveCheck = function () {
         const pw_regex = new RegExp('[!@#$%^&*a-zA-Z0-9]+');

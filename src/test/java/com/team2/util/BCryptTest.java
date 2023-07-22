@@ -14,16 +14,16 @@ public class BCryptTest {
 
 	@Test
 	public void encryptTest() {
-		String plain = "$2a$12$sL1eb0zQuKXkONcjQvrkMOYmMpk33z.xgro1vgvLsDBEBiXnIwetO";
+		String plain = "1234";
 		String hashed = BCrypt.hashpw(plain, BCrypt.gensalt(12));
 		log.info("Encrypt: {}", hashed);
 	}
 
 	// @Test
 	public void decryptTest() {
-		String hashed = "$2a$12$5FjDB3Vz.V7LOxd92KvU8OaDgdceFXV9Lq.Z.qO2BiEqMreA4nxnq";
-		String plain = "1234!";
-		String plain_corrent = "1q2w3e4r!";
+		String hashed = "$2a$12$1Nk8qS6u1OLrCAx7tFVtCOeMZIJP5d293xWIZx0yKES9o2YSH8O1W";
+		String plain = "1234";
+		String plain_corrent = "1234";
 		if (BCrypt.checkpw(plain, hashed)) {
 			log.info("일치");
 		} else {

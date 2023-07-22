@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/resources/css/member/login.css" />
   </head>
   <body>
-    <jsp:include page="../common/header.jsp"></jsp:include>
+    <jsp:include page="../include/header.jsp"></jsp:include>
     <section class="blog-details spad2">
       <div class="container">
         <c:choose>
@@ -64,7 +64,7 @@
         </c:choose>
       </div>
     </section>
-    <jsp:include page="../common/footer.jsp"></jsp:include>
+    <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="/resources/js/member/login.js"></script>
   </body>
 </html>

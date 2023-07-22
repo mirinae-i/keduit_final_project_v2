@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.team2.domain.api.DisasterInfoDTO;
+import com.team2.domain.api.LocationDTO;
 import com.team2.util.RestAPIUtil;
 
 import lombok.AllArgsConstructor;
@@ -23,13 +24,7 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 	@Override
 	public DisasterInfoDTO show() {
 		log.info("** DisasterInfoAPIServiceImpl - show **");
-		return prepareAPICall(200);
-	}
-
-	@Override
-	public DisasterInfoDTO showAlt() {
-		log.info("** DisasterInfoAPIServiceImpl - showAlt **");
-		return prepareAPICall(10);
+		return prepareAPICall();
 	}
 
 	@Override
@@ -38,7 +33,7 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 	}
 
 	// API를 호출하기 위한 양식 작성 메소드, RestAPIUtil을 통해 호출
-	private DisasterInfoDTO prepareAPICall(int amount) {
+	private DisasterInfoDTO prepareAPICall() {
 		// head
 		Map<String, String> head = new HashMap<>();
 		head.put("Content-type", "application/xml;charset=UTF-8");
@@ -46,10 +41,16 @@ public class DisasterInfoAPIServiceImpl implements DisasterInfoAPIService {
 		Map<String, String> body = new HashMap<>();
 		body.put("ServiceKey", API_KEY);
 		body.put("pageNo", "1");
-		body.put("numOfRows", String.valueOf(amount));
+		body.put("numOfRows", "100");
 		body.put("type", "xml");
 		// return
 		return RestAPIUtil.connHttpGetType(URL, head, body, DisasterInfoDTO.class);
+	}
+
+	@Override
+	public List<LocationDTO> searchLocationsByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

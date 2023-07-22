@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 public class CommentServiceImpl implements CommentService {
 
 	@Override
-	public void register(CommentDTO vo) {
+	public Integer register(CommentDTO vo) {
+		return null;
 		// TODO Auto-generated method stub
 	}
 

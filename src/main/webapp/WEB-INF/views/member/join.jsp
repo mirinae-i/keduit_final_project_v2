@@ -7,7 +7,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원 가입</title>
     <link rel="stylesheet" href="/resources/css/member/join.css" />
-    <jsp:include page="../common/header.jsp"></jsp:include>
+    <jsp:include page="../include/header.jsp"></jsp:include>
   </head>
   <body>
     <section class="blog-details spad2">
@@ -132,6 +132,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       </div>
     </section>
   </body>
-  <jsp:include page="../common/footer.jsp"></jsp:include>
+  <jsp:include page="../include/footer.jsp"></jsp:include>
   <script src="/resources/js/member/join.js"></script>
 </html>

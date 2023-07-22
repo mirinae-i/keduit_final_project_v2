@@ -14,7 +14,6 @@ public class MemberDTO {
 	private String email;
 	private String name;
 	private Timestamp join_date;
-	private Timestamp leave_date;
 	private Integer valid;
 
 }
